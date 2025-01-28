@@ -30,7 +30,7 @@ function EmailForm() {
       setMessage('An error occurred.');
     }
   };
-
+//
   return (
     <div className="flex flex-col items-center justify-center min-h-screen bg-gray-100">
       <form className="bg-white p-6 rounded-lg shadow-md w-80" onSubmit={handleSubmit}>
