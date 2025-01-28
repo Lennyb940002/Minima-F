@@ -34,7 +34,7 @@ function EmailForm() {
   return (
     <div className="flex flex-col items-center justify-center min-h-screen bg-gray-100">
       <img 
-        src="../image/logo.png" 
+        src="../../image/logo.png" 
         alt="Logo" 
         className="w-40 h-40 mb-8"
       />
