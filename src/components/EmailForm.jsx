@@ -47,7 +47,7 @@ function EmailForm() {
           id="email"
           value={email}
           onChange={handleEmailChange}
-          placeholder="Enter your email"
+          placeholder="Entrer votre email !"
           required
           className="w-full p-2 mb-4 text-white bg-black border border-white rounded-md focus:outline-none focus:ring-2 focus:ring-white"
         />
