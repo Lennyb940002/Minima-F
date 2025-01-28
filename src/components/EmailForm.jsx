@@ -53,7 +53,7 @@ function EmailForm() {
         />
         <button
           type="submit"
-          className="w-full p-2 mb-4 text-black bg-white border border-white rounded-md hover:bg-black hover:text-white focus:outline-none focus:ring-2 focus:ring-white"
+          className="w-full p-2 text-black bg-white border border-white rounded-md hover:bg-black hover:text-white focus:outline-none focus:ring-2 focus:ring-white"
         >
           S'inscrire
         </button>
