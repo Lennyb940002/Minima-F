@@ -92,8 +92,8 @@ function EmailForm() {
                 <MailCheck className="w-3 h-3 mt-1 flex-shrink-0" />
                 <span>
                   Merci pour votre inscription ! Notre application est en cours de développement,
-                  et vous serez informé dès son lancement. En attendant, une surprise vous attend
-                  pour vous remercier de votre patience !
+                  et vous serez informé(e) dès son lancement. À cette occasion, un cadeau spécial
+                  vous sera offert pour vous remercier de votre patience !
                 </span>
               </p>
             </div>
