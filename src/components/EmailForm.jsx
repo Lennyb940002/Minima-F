@@ -27,8 +27,9 @@ function EmailForm() {
         setSubmitStatus('success');
         setEmail('');
       } else {
+        const data = await response.json();
         setSubmitStatus('error');
-        setErrorMessage("Une erreur est survenue lors de l'inscription.");
+        setErrorMessage(data.message || "Une erreur est survenue lors de l'inscription.");
       }
     } catch (error) {
       console.error('Error:', error);
@@ -46,11 +47,13 @@ function EmailForm() {
           <img src={logo} alt="Logo" className="h-40 w-40" />
         </div>
         <h2 className="text-xl font-semibold text-white mb-4 text-center">Minima</h2>
+
         {submitStatus === 'error' && (
           <div className="mb-3 p-3 bg-red-500/10 border border-red-500/50 rounded-lg text-red-500 text-xs">
             {errorMessage}
           </div>
         )}
+
         <form onSubmit={handleSubmit} className="space-y-3">
           <div>
             <label htmlFor="email" className="block text-xs font-semibold text-white text-left mb-1">
@@ -76,10 +79,24 @@ function EmailForm() {
             {isSubmitting ? 'Chargement...' : "S'inscrire"}
           </button>
         </form>
+
         {submitStatus === 'success' && (
-          <div className="mt-3 p-3 bg-black border border-white/10 rounded-lg text-gray text-xs flex items-center justify-center gap-2">
-            <MailCheck className="w-3 h-3" />
-            <span>Merci pour votre inscription ! Notre application est en cours de développement, et vous serez informé dès son lancement. En attendant, une surprise vous attend pour vous remercier de votre patience !</span>
+          <div className="space-y-4 mt-4">
+            <div className="flex items-center justify-center gap-2 text-green-400 text-xs">
+              <MailCheck className="w-3 h-3" />
+              <span>Inscription réussie !</span>
+            </div>
+
+            <div className="w-[350px] max-w-md px-3 py-2 bg-transparent border border-white/20 rounded-lg text-white text-xs">
+              <p className="flex items-start gap-2">
+                <MailCheck className="w-3 h-3 mt-1 flex-shrink-0" />
+                <span>
+                  Merci pour votre inscription ! Notre application est en cours de développement,
+                  et vous serez informé dès son lancement. En attendant, une surprise vous attend
+                  pour vous remercier de votre patience !
+                </span>
+              </p>
+            </div>
           </div>
         )}
       </div>
