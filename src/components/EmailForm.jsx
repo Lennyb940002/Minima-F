@@ -46,13 +46,11 @@ function EmailForm() {
           <img src={logo} alt="Logo" className="h-40 w-40" />
         </div>
         <h2 className="text-xl font-semibold text-white mb-4 text-center">Minima</h2>
-
         {submitStatus === 'error' && (
           <div className="mb-3 p-3 bg-red-500/10 border border-red-500/50 rounded-lg text-red-500 text-xs">
             {errorMessage}
           </div>
         )}
-
         <form onSubmit={handleSubmit} className="space-y-3">
           <div>
             <label htmlFor="email" className="block text-xs font-semibold text-white text-left mb-1">
@@ -78,11 +76,10 @@ function EmailForm() {
             {isSubmitting ? 'Chargement...' : "S'inscrire"}
           </button>
         </form>
-
         {submitStatus === 'success' && (
-          <div className="flex items-center justify-center gap-2 mt-3 text-green-400 text-xs">
+          <div className="mt-3 p-3 bg-black border border-white/10 rounded-lg text-gray text-xs flex items-center justify-center gap-2">
             <MailCheck className="w-3 h-3" />
-            <span>Inscription réussie !</span>
+            <span>Merci pour votre inscription ! Notre application est en cours de développement, et vous serez informé dès son lancement. En attendant, une surprise vous attend pour vous remercier de votre patience !</span>
           </div>
         )}
       </div>
