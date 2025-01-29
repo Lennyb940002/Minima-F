@@ -5,7 +5,7 @@ import logo from '../image/logo.png';
 function EmailForm() {
   const [email, setEmail] = useState('');
   const [isSubmitting, setIsSubmitting] = useState(false);
-  const [submitStatus, setSubmitStatus] = useState(null); // 'success' | 'error' | null
+  const [submitStatus, setSubmitStatus] = useState(null);
   const [errorMessage, setErrorMessage] = useState('');
 
   const handleSubmit = async (event) => {
@@ -28,7 +28,7 @@ function EmailForm() {
         setEmail('');
       } else {
         setSubmitStatus('error');
-        setErrorMessage('Une erreur est survenue lors de l\'inscription.');
+        setErrorMessage("Une erreur est survenue lors de l'inscription.");
       }
     } catch (error) {
       console.error('Error:', error);
@@ -40,22 +40,22 @@ function EmailForm() {
   };
 
   return (
-    <section className="py-24 px-4 flex flex-col items-center text-center">
-      <div className="w-full max-w-md p-8 rounded-lg backdrop-blur-sm mb-40">
-        <div className="flex flex-col items-center text-center mb-14">
-          <img src={logo} alt="Logo" className="h-48 w-48" />
+    <section className="min-h-screen flex flex-col items-center justify-center py-16 px-6">
+      <div className="w-full max-w-md p-6 rounded-lg bg-black shadow-lg">
+        <div className="flex flex-col items-center text-center mb-10">
+          <img src={logo} alt="Logo" className="h-40 w-40" />
         </div>
-        <h2 className="text-2xl font-bold text-white mb-6 text-center">Minima</h2>
+        <h2 className="text-xl font-semibold text-white mb-4 text-center">Minima</h2>
 
         {submitStatus === 'error' && (
-          <div className="mb-4 p-3 bg-red-500/10 border border-red-500/50 rounded-lg text-red-500 text-sm">
+          <div className="mb-3 p-3 bg-red-500/10 border border-red-500/50 rounded-lg text-red-500 text-xs">
             {errorMessage}
           </div>
         )}
 
-        <form onSubmit={handleSubmit} className="space-y-4">
+        <form onSubmit={handleSubmit} className="space-y-3">
           <div>
-            <label htmlFor="email" className="block text-sm font-medium text-white mb-1 mt-12 mr-96">
+            <label htmlFor="email" className="block text-xs font-semibold text-white text-left mb-1">
               Email
             </label>
             <input
@@ -63,7 +63,7 @@ function EmailForm() {
               id="email"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
-              className="w-full mb-2 px-4 py-2 bg-transparent border border-white/20 rounded-lg text-white focus:border-white focus:outline-none"
+              className="w-[300px] px-3 py-2 bg-transparent border border-white/20 rounded-lg text-white text-xs focus:border-white focus:outline-none"
               required
               disabled={isSubmitting}
               placeholder="Votre email"
@@ -71,17 +71,17 @@ function EmailForm() {
           </div>
           <button
             type="submit"
-            className={`w-full py-2 px-4 border border-white text-white transition-colors rounded-lg mt-6 
+            className={`w-full py-2 px-3 border border-white text-white text-xs font-semibold transition-colors rounded-lg 
               ${isSubmitting ? 'opacity-50 cursor-not-allowed' : 'hover:bg-white hover:text-black'}`}
             disabled={isSubmitting}
           >
-            {isSubmitting ? 'Chargement...' : 'S\'inscrire'}
+            {isSubmitting ? 'Chargement...' : "S'inscrire"}
           </button>
         </form>
 
         {submitStatus === 'success' && (
-          <div className="flex items-center justify-center gap-2 mt-4 text-green-400">
-            <MailCheck className="w-4 h-4" />
+          <div className="flex items-center justify-center gap-2 mt-3 text-green-400 text-xs">
+            <MailCheck className="w-3 h-3" />
             <span>Inscription réussie !</span>
           </div>
         )}
