@@ -63,7 +63,7 @@ function EmailForm() {
               id="email"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
-              className="w-[300px] px-3 py-2 bg-transparent border border-white/20 rounded-lg text-white text-xs focus:border-white focus:outline-none"
+              className="w-[350px] max-w-md px-3 py-2 bg-transparent border border-white/20 rounded-lg text-white text-xs focus:border-white focus:outline-none"
               required
               disabled={isSubmitting}
               placeholder="Votre email"
