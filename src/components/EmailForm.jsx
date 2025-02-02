@@ -43,7 +43,7 @@ function EmailForm() {
   };
 
   return (
-    <main className="min-h-screen bg-[#0B0B0B] flex flex-col items-center justify-center p-4">
+    <main className="min-h-screen flex flex-col items-center justify-center py-16 px-6">
       <section className="w-full max-w-md bg-black border border-white/10 rounded-2xl p-8 shadow-2xl">
         {/* Logo et En-tête */}
         <div className="flex flex-col items-center space-y-6 mb-8">
@@ -64,19 +64,18 @@ function EmailForm() {
 
         {/* Message d'erreur */}
         {submitStatus === 'error' && (
-          <div className="mb-6 p-4 bg-red-500/10 border border-red-500/20 rounded-lg flex items-center gap-3 text-red-400">
-            <AlertCircle className="h-5 w-5 flex-shrink-0" />
-            <p className="text-sm">{errorMessage}</p>
+          <div className="mb-3 p-3 bg-red-500/10 border border-red-500/50 rounded-lg text-red-500 text-xs">
+            {errorMessage}
           </div>
         )}
 
         {/* Formulaire */}
         {submitStatus !== 'success' && (
-          <form onSubmit={handleSubmit} className="space-y-6">
-            <div className="space-y-2">
+          <form onSubmit={handleSubmit} className="space-y-3">
+            <div>
               <label 
                 htmlFor="email" 
-                className="block text-sm font-medium text-white"
+                className="block text-xs font-semibold text-white text-left mb-1"
               >
                 Adresse email
               </label>
@@ -86,30 +85,26 @@ function EmailForm() {
                 name="email"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
-                placeholder="exemple@email.com"
+                placeholder="Votre email"
                 required
                 disabled={isSubmitting}
-                className="w-full px-4 py-3 bg-white/5 border border-white/10 rounded-lg
-                          text-white text-sm placeholder-gray-500
-                          focus:border-white/30 focus:ring-1 focus:ring-white/30 focus:outline-none
-                          disabled:opacity-50 disabled:cursor-not-allowed
-                          transition duration-200"
+                className="w-[350px] max-w-md px-3 py-2 bg-transparent border border-white/20 rounded-lg text-white text-xs focus:border-white focus:outline-none"
               />
             </div>
 
             <button
               type="submit"
               disabled={isSubmitting}
-              className={`w-full py-3 px-4 rounded-lg text-sm font-medium
-                        border border-white/20 text-white
-                        transition duration-200
+              className={`w-full py-2 px-3 rounded-lg text-xs font-semibold
+                        border border-white text-white
+                        transition-colors
                         ${isSubmitting 
                           ? 'opacity-50 cursor-not-allowed'
-                          : 'hover:bg-white hover:text-black active:scale-[0.98]'}`}
+                          : 'hover:bg-white hover:text-black'}`}
             >
               {isSubmitting ? (
                 <div className="flex items-center justify-center gap-2">
-                  <Loader2 className="h-4 w-4 animate-spin" />
+                  <Loader2 className="w-3 h-3 animate-spin" />
                   <span>Chargement...</span>
                 </div>
               ) : (
@@ -121,17 +116,20 @@ function EmailForm() {
 
         {/* Message de succès */}
         {submitStatus === 'success' && (
-          <div className="space-y-6">
-            <div className="flex items-center justify-center gap-2 text-green-400">
-              <MailCheck className="h-5 w-5" />
-              <span className="font-medium">Inscription réussie !</span>
+          <div className="space-y-4 mt-4">
+            <div className="flex items-center justify-center gap-2 text-green-400 text-xs">
+              <MailCheck className="w-3 h-3" />
+              <span>Inscription réussie !</span>
             </div>
 
-            <div className="p-4 bg-green-500/10 border border-green-500/20 rounded-lg text-white/90">
-              <p className="text-sm leading-relaxed">
-                Merci pour votre inscription ! Notre application est en cours de développement,
-                et vous serez informé(e) dès son lancement. À cette occasion, un cadeau spécial
-                vous sera offert pour vous remercier de votre patience !
+            <div className="w-[350px] max-w-md px-3 py-2 bg-transparent border border-white/20 rounded-lg text-white text-xs">
+              <p className="flex items-start gap-2">
+                <MailCheck className="w-3 h-3 mt-1 flex-shrink-0" />
+                <span>
+                  Merci pour votre inscription ! Notre application est en cours de développement,
+                  et vous serez informé(e) dès son lancement. À cette occasion, un cadeau spécial
+                  vous sera offert pour vous remercier de votre patience !
+                </span>
               </p>
             </div>
           </div>
