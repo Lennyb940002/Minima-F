@@ -44,21 +44,18 @@ function EmailForm() {
 
   return (
     <main className="min-h-screen flex flex-col items-center justify-center py-16 px-6">
-      <section className="w-full max-w-md bg-black border border-white/10 rounded-2xl p-8 shadow-2xl">
+      <section className="w-full max-w-md bg-black rounded-2xl p-8 shadow-2xl">
         {/* Logo et En-tête */}
         <div className="flex flex-col items-center space-y-6 mb-8">
-          <img 
-            src={logo} 
-            alt="Logo Minima" 
+          <img
+            src={logo}
+            alt="Logo Minima"
             className="h-40 w-40 object-contain"
           />
           <div className="text-center">
             <h1 className="text-2xl font-bold text-white mb-2">
               Minima
             </h1>
-            <p className="text-gray-400 text-sm">
-              Rejoignez notre liste d'attente
-            </p>
           </div>
         </div>
 
@@ -73,8 +70,8 @@ function EmailForm() {
         {submitStatus !== 'success' && (
           <form onSubmit={handleSubmit} className="space-y-3">
             <div>
-              <label 
-                htmlFor="email" 
+              <label
+                htmlFor="email"
                 className="block text-xs font-semibold text-white text-left mb-1"
               >
                 Adresse email
@@ -98,9 +95,9 @@ function EmailForm() {
               className={`w-full py-2 px-3 rounded-lg text-xs font-semibold
                         border border-white text-white
                         transition-colors
-                        ${isSubmitting 
-                          ? 'opacity-50 cursor-not-allowed'
-                          : 'hover:bg-white hover:text-black'}`}
+                        ${isSubmitting
+                  ? 'opacity-50 cursor-not-allowed'
+                  : 'hover:bg-white hover:text-black'}`}
             >
               {isSubmitting ? (
                 <div className="flex items-center justify-center gap-2">
