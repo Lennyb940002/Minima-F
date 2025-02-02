@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { MailCheck } from 'lucide-react';
+import { MailCheck, Loader2 } from 'lucide-react';
 import logo from '../image/logo.png';
 
 function EmailForm() {
@@ -15,7 +15,9 @@ function EmailForm() {
     setErrorMessage('');
 
     try {
-      const response = await fetch(`${import.meta.env.VITE_BACKEND_URL}/emails`, {
+      console.log('Envoi de la requête à:', `${import.meta.env.VITE_BACKEND_URL}/api/emails`);
+      
+      const response = await fetch(`${import.meta.env.VITE_BACKEND_URL}/api/emails`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -23,82 +25,110 @@ function EmailForm() {
         body: JSON.stringify({ email }),
       });
 
+      console.log('Status de la réponse:', response.status);
+      const data = await response.json();
+      console.log('Données reçues:', data);
+
       if (response.ok) {
         setSubmitStatus('success');
         setEmail('');
       } else {
-        const data = await response.json();
         setSubmitStatus('error');
         setErrorMessage(data.message || "Une erreur est survenue lors de l'inscription.");
       }
     } catch (error) {
-      console.error('Error:', error);
+      console.error('Erreur détaillée:', error);
       setSubmitStatus('error');
-      setErrorMessage('Une erreur de connexion est survenue.');
+      setErrorMessage("Une erreur de connexion est survenue. Veuillez réessayer.");
     } finally {
       setIsSubmitting(false);
     }
   };
 
+  const renderSuccessMessage = () => (
+    <div className="space-y-4 mt-4 animate-fade-in">
+      <div className="flex items-center justify-center gap-2 text-green-400 text-xs">
+        <MailCheck className="w-4 h-4" />
+        <span>Inscription réussie !</span>
+      </div>
+
+      <div className="w-full px-4 py-3 bg-green-500/10 border border-green-500/20 rounded-lg text-white text-xs">
+        <p className="flex items-start gap-2">
+          <MailCheck className="w-3 h-3 mt-1 flex-shrink-0" />
+          <span>
+            Merci pour votre inscription ! Notre application est en cours de développement,
+            et vous serez informé(e) dès son lancement. À cette occasion, un cadeau spécial
+            vous sera offert pour vous remercier de votre patience !
+          </span>
+        </p>
+      </div>
+    </div>
+  );
+
   return (
-    <section className="min-h-screen flex flex-col items-center justify-center py-16 px-6">
-      <div className="w-full max-w-md p-6 rounded-lg bg-black shadow-lg">
-        <div className="flex flex-col items-center text-center mb-10">
-          <img src={logo} alt="Logo" className="h-40 w-40" />
+    <section className="min-h-screen flex flex-col items-center justify-center p-4 bg-gradient-to-b from-gray-900 to-black">
+      <div className="w-full max-w-md p-8 rounded-xl bg-black/80 backdrop-blur-lg shadow-xl border border-white/10">
+        <div className="flex flex-col items-center text-center mb-8">
+          <img 
+            src={logo} 
+            alt="Logo Minima" 
+            className="h-32 w-32 object-contain drop-shadow-2xl" 
+          />
+          <h2 className="text-2xl font-bold text-white mt-6">Minima</h2>
+          <p className="text-gray-400 text-sm mt-2">Rejoignez notre liste d'attente</p>
         </div>
-        <h2 className="text-xl font-semibold text-white mb-4 text-center">Minima</h2>
 
         {submitStatus === 'error' && (
-          <div className="mb-3 p-3 bg-red-500/10 border border-red-500/50 rounded-lg text-red-500 text-xs">
+          <div className="mb-4 p-3 bg-red-500/10 border border-red-500/20 rounded-lg text-red-400 text-xs animate-shake">
             {errorMessage}
           </div>
         )}
 
-        <form onSubmit={handleSubmit} className="space-y-3">
+        <form onSubmit={handleSubmit} className="space-y-4">
           <div>
-            <label htmlFor="email" className="block text-xs font-semibold text-white text-left mb-1">
-              Email
+            <label 
+              htmlFor="email" 
+              className="block text-sm font-medium text-white text-left mb-2"
+            >
+              Adresse email
             </label>
             <input
               type="email"
               id="email"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
-              className="w-[350px] max-w-md px-3 py-2 bg-transparent border border-white/20 rounded-lg text-white text-xs focus:border-white focus:outline-none"
+              className="w-full px-4 py-2.5 bg-white/5 border border-white/10 rounded-lg 
+                        text-white text-sm placeholder-gray-500
+                        focus:border-white/30 focus:outline-none focus:ring-1 focus:ring-white/30
+                        transition-all duration-200"
               required
               disabled={isSubmitting}
-              placeholder="Votre email"
+              placeholder="exemple@email.com"
             />
           </div>
+
           <button
             type="submit"
-            className={`w-full py-2 px-3 border border-white text-white text-xs font-semibold transition-colors rounded-lg 
-              ${isSubmitting ? 'opacity-50 cursor-not-allowed' : 'hover:bg-white hover:text-black'}`}
             disabled={isSubmitting}
+            className={`w-full py-2.5 px-4 border border-white/20 rounded-lg
+                      text-sm font-medium text-white transition-all duration-200
+                      ${isSubmitting 
+                        ? 'opacity-50 cursor-not-allowed' 
+                        : 'hover:bg-white hover:text-black hover:border-white active:scale-98'
+                      }`}
           >
-            {isSubmitting ? 'Chargement...' : "S'inscrire"}
+            {isSubmitting ? (
+              <span className="flex items-center justify-center gap-2">
+                <Loader2 className="w-4 h-4 animate-spin" />
+                Chargement...
+              </span>
+            ) : (
+              "S'inscrire"
+            )}
           </button>
         </form>
 
-        {submitStatus === 'success' && (
-          <div className="space-y-4 mt-4">
-            <div className="flex items-center justify-center gap-2 text-green-400 text-xs">
-              <MailCheck className="w-3 h-3" />
-              <span>Inscription réussie !</span>
-            </div>
-
-            <div className="w-[350px] max-w-md px-3 py-2 bg-transparent border border-white/20 rounded-lg text-white text-xs">
-              <p className="flex items-start gap-2">
-                <MailCheck className="w-3 h-3 mt-1 flex-shrink-0" />
-                <span>
-                  Merci pour votre inscription ! Notre application est en cours de développement,
-                  et vous serez informé(e) dès son lancement. À cette occasion, un cadeau spécial
-                  vous sera offert pour vous remercier de votre patience !
-                </span>
-              </p>
-            </div>
-          </div>
-        )}
+        {submitStatus === 'success' && renderSuccessMessage()}
       </div>
     </section>
   );
