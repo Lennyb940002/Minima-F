@@ -16,7 +16,8 @@ function EmailForm() {
 
     try {
       const backendURL = import.meta.env.VITE_BACKEND_URL || 'https://minima-b.vercel.app';
-      const response = await fetch(`${backendURL}/api/emails`, {
+      const url = backendURL.endsWith('/api') ? `${backendURL}/emails` : `${backendURL}/api/emails`;
+      const response = await fetch(url, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
